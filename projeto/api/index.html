@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Projeto</title>
+	<link rel="stylesheet" type="text/css" href="main.css">
+</head>
+<style type="text/css">
+	html,
+	body {
+	    margin: 0;
+	    padding: 0;
+	}
+
+	*{
+	    box-sizing: border-box;
+	}
+
+	div.principal {
+	    width: 98vw;
+	    display: flex;
+	    flex-direction: column;
+	}
+
+	div.categorias {
+		width: 100%;
+		height: 7%;
+		display: flex;
+		flex-direction: row;
+		position: fixed;
+	}
+
+	div.categorias > div{
+		flex-grow: 1;
+		text-align: center;
+		border: 0.1vh solid black;
+		cursor: pointer;
+		background: white;
+	}
+
+	div.posts {
+		height: 100%;
+		margin-top: 50px;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+
+	}
+
+	div.posts div{
+		width: 40vw;
+		height: 15vw;
+		margin-top: 50px;
+		text-align: center;
+		align-items: center;
+		justify-content: center;
+		border: 0.1vh solid black;
+		cursor: pointer;
+	}
+	.button{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 1vh;
+	}
+</style>
+<body>
+	<div class="principal">
+		<div class="categorias" id="categorias">
+		</div>
+		<div class="posts">
+		</div>
+		<div class="button"><a href="index.html"><button>Mostrar Todas</button></a></div>
+	</div>
+	<script src="main.js"></script>
+	<script src="get.js"></script>
+</body>
+</html>

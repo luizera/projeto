@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 
 require_once '../../config/Conexao.php';
 require_once '../../models/Categoria.php';
+//include "../../config/auth.php";
 
 //instancia o objeto conexao
 $db = new Conexao();
@@ -17,12 +18,7 @@ $con = $db->getConexao();
 $cat = new Categoria($con);
 
 //chama o metodo read() e da o resultado dele na variavel resultado
-$id = $_GET['id'];
 
-if(isset($id)){
-	$resultado = $cat->read($id);
-}else{
-	$resultado = $cat->read();
-}
+$resultado = $cat->read();
 
 echo json_encode($resultado);

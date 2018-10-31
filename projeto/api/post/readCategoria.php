@@ -16,12 +16,6 @@ $con = $db->getConexao();
 $post = new Post($con);
 
 //chama o metodo read() e da o resultado dele na variavel resultado
-$idCat = $_GET['idCat'];
+$id = json_decode(file_get_contents('php://input'),true);
 
-if(isset($id)){
-	$resultado = $post->read($idCat);
-}else{
-	$resultado = $post->read();
-}
-
-echo json_encode($resultado);
+$post->readCategoria($id);

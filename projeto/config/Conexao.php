@@ -20,6 +20,8 @@ class Conexao{
 			$this->conexao->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		}catch(PDOException $e){
 			echo "Erro na conexão: ".$e->getMessage();
+			throw new PDOException($e);
+			
 		}
 
 		return $this->conexao;

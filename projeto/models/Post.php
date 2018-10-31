@@ -14,47 +14,25 @@ class Post{
 
 	}
 
-	public function read($id=null){
-		try{
-			if (isset($id)){
-				$consulta = "SELECT * from post WHERE id= :id";
-				$stmt = $this->conexao->prepare($consulta);
-				$stmt->bindParam('id',$id,PDO::PARAM_INT);
-				$stmt->execute();
-				$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-			}else{
-				$consulta = "SELECT * from post order by titulo";
-				$stmt = $this->conexao->prepare($consulta);
-				$stmt->execute();
-				$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			}
-			return $resultado;
-		}catch(PDOException $e){
-			die($e);
-		}
+	public function read(){
+		$consulta = "SELECT titulo,id,id_categoria from post ";
+		$stmt = $this->conexao->prepare($consulta);
+		$stmt->execute();
+		$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		die(json_encode($resultado));
 	}
 
 	//metodo que traga posts filtrados por categoria 
 	//ordena por data decrescente
 	//join para trazer tambem o nome da categoria
-	
-	public function readCategoriaPost($idCat=null){
-		if (isset($idCat)){
-			$consulta = "SELECT c.nome , p.titulo FROM categoria c INNER JOIN post p ON c.id = p.:id_categoria";
-			$stmt = $this->conexao->prepare($consulta);
-			$stmt->bindParam(':id_categoria',$idCat,PDO::PARAM_INT);
 
-		}else{
-			$consulta = "SELECT c.nome , p.titulo FROM categoria c INNER JOIN post p ON c.id = p.id_categoria";
-			$stmt = $this->conexao->prepare($consulta);
-			$stmt->execute();
-			$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
-			return $resultado;
-		}
-
+	public function readCategoria($id){
+		$consulta = "SELECT c.id,p.id,p.titulo,c.nome,p.autor,p.autor,p.texto,p.id_categoria from post p INNER JOIN categoria c ON c.id = p.id_categoria WHERE c.id = ?";
+		$stmt = $this->conexao->prepare($consulta);
+		$stmt->bindParam(1,$id['id']);
 		$stmt->execute();
-		$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
-		return $resultado;
+		$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		die(json_encode($resultado));
 	}
 
 	public function create(){

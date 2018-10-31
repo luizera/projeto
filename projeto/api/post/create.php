@@ -4,6 +4,7 @@ header('Content-Type: application/json');
 
 require_once '../../config/Conexao.php';
 require_once '../../models/Post.php';
+include "../../config/auth.php";
 
 //instancia o objeto conexao
 $db = new Conexao();

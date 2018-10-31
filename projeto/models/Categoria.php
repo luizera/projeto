@@ -26,13 +26,22 @@ class Categoria{
 			$stmt->bindParam(':id',$id,PDO::PARAM_INT);
 
 		}else{
-			$consulta = "SELECT * from categoria order by nome";
+			$consulta = "SELECT nome, id from categoria order by nome";
 			$stmt = $this->conexao->prepare($consulta);
 			$stmt->execute();
 			$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			return $resultado;
 		}
 
+		$stmt->execute();
+		$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $resultado;
+	}
+
+	public function readCategoria($id){
+		$consulta = "SELECT * from post p INNER JOIN categoria c ON c.id = p.id WHERE p.id = :id";
+		$stmt = $this->conexao->prepare($consulta);
+		$stmt->bindParam(':id',$id,PDO::PARAM_INT);
 		$stmt->execute();
 		$resultado = $stmt->fetch(PDO::FETCH_ASSOC);
 		return $resultado;
