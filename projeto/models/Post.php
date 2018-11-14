@@ -14,11 +14,19 @@ class Post{
 
 	}
 
-	public function read(){
-		$consulta = "SELECT titulo,id,id_categoria from post ";
-		$stmt = $this->conexao->prepare($consulta);
-		$stmt->execute();
-		$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+	public function read($id=null){
+		if(isset($id)){
+			$consulta = "SELECT titulo,id,id_categoria,autor,dt_criacao,texto from post where id=:id";
+			$stmt = $this->conexao->prepare($consulta);
+			$stmt->bindParam(':id',$id);
+			$stmt->execute();
+			$resultado = $stmt->fetch(PDO::FETCH_ASSOC);	
+		}else{
+			$consulta = "SELECT titulo,id,id_categoria,autor,dt_criacao,texto from post ";
+			$stmt = $this->conexao->prepare($consulta);
+			$stmt->execute();
+			$resultado = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		}
 		die(json_encode($resultado));
 	}
 
@@ -27,7 +35,7 @@ class Post{
 	//join para trazer tambem o nome da categoria
 
 	public function readCategoria($id){
-		$consulta = "SELECT c.id,p.id,p.titulo,c.nome,p.autor,p.autor,p.texto,p.id_categoria from post p INNER JOIN categoria c ON c.id = p.id_categoria WHERE c.id = ?";
+		$consulta = "SELECT c.id,p.id,p.titulo,c.nome,p.autor,p.texto,p.id_categoria,p.dt_criacao from post p INNER JOIN categoria c ON c.id = p.id_categoria WHERE c.id = ?";
 		$stmt = $this->conexao->prepare($consulta);
 		$stmt->bindParam(1,$id['id']);
 		$stmt->execute();

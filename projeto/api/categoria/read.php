@@ -16,9 +16,12 @@ $con = $db->getConexao();
 //instancia o objeto categotia com a conexao como parametro
 //passa a conexao
 $cat = new Categoria($con);
-
+if(isset($_GET['id'])){
+	$resultado = $cat->read($_GET['id']);
+}else{
+	$resultado = $cat->read();
+}
 //chama o metodo read() e da o resultado dele na variavel resultado
 
-$resultado = $cat->read();
 
 echo json_encode($resultado);

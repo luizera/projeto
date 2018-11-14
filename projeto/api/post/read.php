@@ -16,6 +16,10 @@ $con = $db->getConexao();
 $post = new Post($con);
 
 //chama o metodo read() e da o resultado dele na variavel resultado
-$resultado = $post->read();
+if(isset($_GET['id'])){
+	$resultado = $post->read($_GET['id']);
+}else{
+	$resultado = $post->read();
+}
 
 echo json_encode($resultado);
