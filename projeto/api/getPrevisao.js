@@ -21,10 +21,11 @@ window.addEventListener('load', async ()=>{
 		let previsao = await request.json()
 		desc.innerText ="Descrição: " + previsao['weather']['0']['description']
 		temp.innerText = "Temperatura: " + previsao['main']['temp'] + "°"
+		let cidade = previsao['name']
 		console.log(previsao)
 		x.addEventListener('click', async ()=>{
 			swal({
-				title:'Previsão do Tempo',
+				title:cidade,
 				content: y,
 				buttons: {
 					cancel: {
